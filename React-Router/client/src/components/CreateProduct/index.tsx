@@ -1,4 +1,4 @@
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import DisplayError from "../DisplayError";
 import { ALL_PRODUCTS_QUERY } from "../Products";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ export default function CreateProduct() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
     setValue,
   } = useForm({
     resolver: zodResolver(schema),

@@ -8,7 +8,7 @@ const LocalStateContext = createContext<{
   openCart: () => void;
 }>({
   cartOpen: false,
-  setCartOpen: (value: boolean) => {},
+  setCartOpen: (_: boolean) => {},
   toggleCart: () => {},
   closeCart: () => {},
   openCart: () => {},
