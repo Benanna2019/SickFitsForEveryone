@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 // import styled from "styled-components";
 import Nav from "../Nav";
 // import Cart from "./Cart";
@@ -10,7 +11,9 @@ export default function Header() {
     <header>
       <div className="bar">
         <h1>
-          <Link to="/">Sick Fits</Link>
+          <Link to="/" search={() => ({ page: 1 })}>
+            Sick Fits
+          </Link>
         </h1>
         <Nav />
       </div>

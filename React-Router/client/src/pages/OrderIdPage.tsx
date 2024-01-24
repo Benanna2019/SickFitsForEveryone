@@ -2,7 +2,8 @@ import { useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
 import DisplayError from "../components/DisplayError";
 import formatMoney from "../lib/formatMoney";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
+import { useParams } from "@tanstack/react-router";
 
 const SINGLE_ORDER_QUERY = gql(`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -36,7 +37,7 @@ const SINGLE_ORDER_QUERY = gql(`
 // Once a user has order something that order id should forever exist unless they delete an account with all user info attached to it.
 // in that case, if they come back to this site they should still hit the error page, nor should they be allowed to navigate to an order page without being logged in.
 export default function SingleOrderPage() {
-  const params = useParams() as { orderId: string };
+  const params = useParams({ from: "/orders/$orderId" });
   const { data, error, loading } = useQuery(SINGLE_ORDER_QUERY, {
     variables: { id: params.orderId },
   });

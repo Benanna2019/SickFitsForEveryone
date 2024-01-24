@@ -20,6 +20,7 @@
     "@react-spring/web": "^9.7.3",
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.3.0",
+    "@tanstack/react-router": "^1.8.3",
     "@types/react-transition-group": "^4.4.10",
     "feather": "^0.0.6",
     "graphql": "^16.8.1",

@@ -1,8 +1,10 @@
 import { useQuery, gql } from "@apollo/client";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 import DisplayError from "../DisplayError";
 import { perPage } from "../../lib/constants";
 import "./pagination-styles.css";
+import { Link } from "@tanstack/react-router";
+import { productPage } from "../../routes/product-routes";
 
 export const PAGINATION_QUERY = gql(`
   query ProductsCountQuery {
@@ -11,7 +13,7 @@ export const PAGINATION_QUERY = gql(`
 `);
 
 export default function Pagination({ page }: { page: number }) {
-  const [_, setSearchParams] = useSearchParams();
+  // const [_, setSearchParams] = useSearchParams();
   const { error, loading, data } = useQuery(PAGINATION_QUERY);
   if (loading)
     return (
@@ -33,22 +35,27 @@ export default function Pagination({ page }: { page: number }) {
 
   return (
     <div className="pagination__styles">
-      <a
+      <Link
         aria-disabled={page <= 1}
-        onClick={() => setSearchParams({ page: String(page - 1) })}
+        from={productPage.fullPath}
+        to="/"
+        search={(prev) => ({ page: prev.page - 1 })}
+        // onClick={() => setSearchParams({ page: String(page - 1) })}
       >
         <span aria-disabled={page <= 1}>Prev</span>
-      </a>
+      </Link>
       <p>
         Page {page} of {pageCount}
       </p>
       <p>{count} Items Total</p>
-      <a
+      <Link
         aria-disabled={page >= pageCount}
-        onClick={() => setSearchParams({ page: String(page + 1) })}
+        from={productPage.fullPath}
+        search={(prev) => ({ page: prev.page + 1 })}
+        // onClick={() => setSearchParams({ page: String(page + 1) })}
       >
         <span aria-disabled={page >= pageCount}>Next</span>
-      </a>
+      </Link>
     </div>
   );
 }

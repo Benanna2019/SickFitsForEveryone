@@ -1,6 +1,7 @@
 import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Profile() {
       <button
         onClick={async () => {
           signOut();
-          navigate("/");
+          navigate({ to: "/", search: { page: 1 } });
         }}
       >
         Sign Out

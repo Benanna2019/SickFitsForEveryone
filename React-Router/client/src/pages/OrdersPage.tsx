@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { gql } from "../__generated__";
 import { Order } from "../__generated__/graphql";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import DisplayError from "../components/DisplayError";
 import formatMoney from "../lib/formatMoney";
 import "../components/additional-styles/order-item-styles.css";
@@ -50,9 +51,9 @@ export default function OrdersPage() {
       <h2>You have {data?.allOrders.length} orders!</h2>
       <ul className="order__list__styles">
         {data?.allOrders.map((order) => (
-          <li className="order__item__styles">
-            <Link to={`/orders/${order.id}`}>
-              <a>
+          <li key={order.id} className="order__item__styles">
+            <Link to="/orders/$orderId" params={{ orderId: order.id }}>
+              <span>
                 <div className="order-meta">
                   <p>{countItemsInAnOrder(order)} Items</p>
                   <p>
@@ -70,7 +71,7 @@ export default function OrdersPage() {
                     />
                   ))}
                 </div>
-              </a>
+              </span>
             </Link>
           </li>
         ))}

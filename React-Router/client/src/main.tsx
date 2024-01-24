@@ -1,17 +1,17 @@
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import * as reactRouterDom from "react-router-dom";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import * as reactRouterDom from "react-router-dom";
 import "./index.css";
 import { ApolloProviderWrapper } from "./components/ApolloProviderWrapper";
 import { SuperTokensWrapper } from "supertokens-auth-react";
-import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
+import { canHandleRoute, getRoutingComponent } from "supertokens-auth-react/ui";
 import { ThirdPartyEmailPasswordPreBuiltUI } from "supertokens-auth-react/recipe/thirdpartyemailpassword/prebuiltui";
-import ErrorPage from "./error-page";
-import ProductsPage from "./pages/ProductsPage";
-import Root from "./pages/RootLayout";
-import SellPage from "./pages/SellPage";
-import SingleProductPage from "./pages/SingleProductPage";
+// import ErrorPage from "./error-page";
+// import ProductsPage from "./pages/ProductsPage";
+// import Root from "./pages/RootLayout";
+// import SellPage from "./pages/SellPage";
+// import SingleProductPage from "./pages/SingleProductPage";
 import SuperTokens from "supertokens-auth-react";
 import ThirdPartyEmailPassword, {
   Github,
@@ -23,9 +23,12 @@ import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 
 import Session from "supertokens-auth-react/recipe/session";
 import { CartStateProvider } from "./lib/cart-state";
-import OrdersPage from "./pages/OrdersPage";
-import OrderIdPage from "./pages/OrderIdPage";
-import AdminRoot from "./pages/AdminRoot";
+// import OrdersPage from "./pages/OrdersPage";
+// import OrderIdPage from "./pages/OrderIdPage";
+// import AdminRoot from "./pages/AdminRoot";
+// import { EmailPasswordPreBuiltUI } from "supertokens-auth-react/lib/build/recipe/emailpassword/prebuiltui";
+import { router } from "./routes";
+import { RouterProvider } from "@tanstack/react-router";
 
 SuperTokens.init({
   appInfo: {
@@ -52,12 +55,33 @@ SuperTokens.init({
   ],
 });
 
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <SuperTokensWrapper>
-      <ApolloProviderWrapper>
-        <CartStateProvider>
-          <BrowserRouter>
+  <>
+    {/* <React.StrictMode> */}
+    {canHandleRoute([ThirdPartyEmailPasswordPreBuiltUI]) ? (
+      // This renders the login UI on the /auth route
+      getRoutingComponent([ThirdPartyEmailPasswordPreBuiltUI])
+    ) : (
+      <SuperTokensWrapper>
+        <ApolloProviderWrapper>
+          <CartStateProvider>
+            <RouterProvider router={router} />
+          </CartStateProvider>
+        </ApolloProviderWrapper>
+      </SuperTokensWrapper>
+    )}
+    {/* </React.StrictMode> */}
+  </>
+);
+
+{
+  /* <BrowserRouter>
             <Routes>
               {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [
                 ThirdPartyEmailPasswordPreBuiltUI,
@@ -74,11 +98,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/orders/:orderId" element={<OrderIdPage />} />
               </Route>
               <Route path="/admin" element={<AdminRoot />} />
-              {/*Your app routes*/}
-            </Routes>
-          </BrowserRouter>
-        </CartStateProvider>
-      </ApolloProviderWrapper>
-    </SuperTokensWrapper>
-  </React.StrictMode>
-);
+              {/*Your app routes*/
+}
+{
+  /*  </Routes>
+          </BrowserRouter> */
+}

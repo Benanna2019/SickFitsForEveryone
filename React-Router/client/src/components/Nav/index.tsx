@@ -1,4 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "@tanstack/react-router";
+
 import { useUser } from "../UserInfo";
 import Profile from "../SignOut";
 import { useCart } from "../../lib/cart-state";
@@ -15,12 +17,14 @@ export default function Nav() {
   const { cartOpen, setCartOpen } = useCart();
   return (
     <ul className="nav__list">
-      <Link to="/">Products</Link>
+      <Link to="/" search={() => ({ page: 1 })}>
+        Products
+      </Link>
       <SessionAuth>
         <>
           <Link to="/sell">Sell</Link>
           <Link to="/orders">Orders</Link>
-          <Link to="/reset">Reset</Link>
+          {/* <Link to="/reset">Reset</Link> */}
           <Profile />
           <Dialog.Root open={cartOpen} onOpenChange={setCartOpen}>
             <Dialog.Trigger>
@@ -49,7 +53,7 @@ export default function Nav() {
       </SessionAuth>
       {!data?.user && (
         <>
-          <button type="button" onClick={() => navigate("/auth")}>
+          <button type="button" onClick={() => navigate({ to: "/auth" })}>
             Sign In
           </button>
         </>

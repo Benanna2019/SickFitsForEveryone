@@ -61,6 +61,11 @@
     justify-content: center;
     align-items: center;
   }
+  img {
+    width: 475px;
+    height: 475px;
+    border-radius: 0.375rem;
+  }
 }
 
 @keyframes slideInFromLeft {

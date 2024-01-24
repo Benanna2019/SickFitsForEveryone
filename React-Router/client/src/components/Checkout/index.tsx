@@ -11,7 +11,9 @@ import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
 import { useCart } from "../../lib/cart-state";
 import { CURRENT_USER_QUERY } from "../UserInfo";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
+
 import "./checkout-styles.css";
 import "./sick-button-styles.css";
 
@@ -74,7 +76,15 @@ function CheckoutForm() {
     console.log(`Finished with the order!!`);
     console.log(order);
     // 6. Change the page to view the order
-    navigate(`/orders/${order.data.checkout.id}`);
+
+    // react-router-implementation
+    // navigate(`/orders/${order.data.checkout.id}`);
+
+    // tanstack/react-router implementation
+    navigate({
+      to: "/orders/$orderId",
+      params: { orderId: order.data.checkout.id },
+    });
     // 7. Close the cart
     closeCart();
 

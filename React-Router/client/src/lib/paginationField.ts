@@ -53,7 +53,7 @@ export default function paginationField() {
       //f alse from here, (network request)
     },
     merge(existing: any, incoming: any, { args }: any) {
-      const { skip, take } = args;
+      const { skip } = args;
       // This runs when the apollo client comes back
       // from the network with our products
       console.log(`merging items from the network ${incoming.length}`);
